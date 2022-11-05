@@ -9,8 +9,16 @@ bool equalPaths(Node * root)
     if (root == nullptr) {
         return true;
     }
+    else if (root->left && root->right) {
+        return (equalPaths_helper(root->left) == equalPaths_helper(root->right));
+    }
+    else if (root->left) {
+        return equalPaths(root->left);
+    }
+    else if (root->right) {
+        return equalPaths(root->right);
+    }
 
-    return (equalPaths_helper(root->left) == equalPaths_helper(root->right));
 }
 
 int equalPaths_helper (Node* parent) {
