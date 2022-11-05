@@ -19,6 +19,7 @@ bool equalPaths(Node * root)
         return equalPaths(root->right);
     }
 
+    return true;
 }
 
 int equalPaths_helper (Node* parent) {
