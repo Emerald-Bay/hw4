@@ -4,6 +4,7 @@
 #ifndef EQUAL_PATHS_H
 #define EQUAL_PATHS_H
 #include <stdlib.h>
+#include <algorithm>
 
 struct Node {
     int key;
