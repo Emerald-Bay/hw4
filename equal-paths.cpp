@@ -19,7 +19,7 @@ int equalPaths_helper (Node* parent) {
     }
 
     if (parent->left && parent->right) {
-        return std::max(equalPaths_helper(parent->left), equalPaths_helper(parent->right)) + 1;
+        return max(equalPaths_helper(parent->left), equalPaths_helper(parent->right)) + 1;
     }
     else if (parent->left) {
         return equalPaths_helper(parent->left) + 1;
