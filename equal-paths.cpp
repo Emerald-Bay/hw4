@@ -1,9 +1,7 @@
 #include "equal-paths.h"
-using namespace std;
-
 
 // You may add any prototypes of helper functions here
-
+int equalPaths_helper (Node* parent);
 
 bool equalPaths(Node * root)
 {
