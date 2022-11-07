@@ -266,7 +266,7 @@ Begin implementations for the BinarySearchTree::iterator class.
 template<class Key, class Value>
 BinarySearchTree<Key, Value>::iterator::iterator(Node<Key,Value> *ptr)
 {
-    // TODO
+    this->current_ = ptr;
 }
 
 /**
@@ -275,7 +275,7 @@ BinarySearchTree<Key, Value>::iterator::iterator(Node<Key,Value> *ptr)
 template<class Key, class Value>
 BinarySearchTree<Key, Value>::iterator::iterator() 
 {
-    // TODO
+    this->current_ = nullptr;
 
 }
 
@@ -308,7 +308,13 @@ bool
 BinarySearchTree<Key, Value>::iterator::operator==(
     const BinarySearchTree<Key, Value>::iterator& rhs) const
 {
-    // TODO
+    if (this->current_->parent_->item_ == rhs->parent_->item_
+        && this->current_->left_ == rhs->left_
+        && this->current_->right_ == rhs->right_
+        && this->curent_->parent_ == rhs->parent_) {
+            return true;
+        }
+    else return false;
 }
 
 /**
@@ -320,8 +326,13 @@ bool
 BinarySearchTree<Key, Value>::iterator::operator!=(
     const BinarySearchTree<Key, Value>::iterator& rhs) const
 {
-    // TODO
-
+    if (this->current_->parent_->item_ == rhs->parent_->item_
+        && this->current_->left_ == rhs->left_
+        && this->current_->right_ == rhs->right_
+        && this->curent_->parent_ == rhs->parent_) {
+            return false;
+        }
+    else return true;
 }
 
 
@@ -332,7 +343,17 @@ template<class Key, class Value>
 typename BinarySearchTree<Key, Value>::iterator&
 BinarySearchTree<Key, Value>::iterator::operator++()
 {
-    // TODO
+    if (this->current_->right) {
+        this->current_ = this->current_->right;
+        while (this->current_->left_) {
+            this->current_ = this->current_->left;
+        }
+    }
+    else if (this->current_->parent_) {
+        while (this->current_->parent_->right_ == this_current_) {
+            this->current_ = this->current_->parent_;
+        }
+    }
 
 }
 
