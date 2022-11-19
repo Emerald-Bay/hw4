@@ -478,7 +478,8 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
             }
         }
         std::cout << "Current Value is " << keyValuePair.first << std::endl;
-        std::cout << "This should print " << parent << " " << parent->getKey() << std::endl;
+        std::cout << "This should print " << parent;
+        std::cout << " " << parent->getKey() << std::endl;
         if (parent->getKey() > keyValuePair.first) {
             std::cout << "Bigger insert : " << keyValuePair.first << std::endl;
             parent->setLeft(new Node<Key, Value>(keyValuePair.first, keyValuePair.second, parent));
