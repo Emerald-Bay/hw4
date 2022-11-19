@@ -495,40 +495,71 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
 */
 template<typename Key, typename Value>
 void BinarySearchTree<Key, Value>::remove(const Key & key) {
-    Node<Key, Value>* temp = internalFind(key);
-    if (temp == nullptr)  // if node is not in tree
-    {
+    Node<Key, Value>* node = internalFind(key);
+
+    if (node == nullptr) {
         return;
-    } else if (temp->getLeft() == nullptr && temp->getRight() == nullptr)  // no child nodes
-    {
-        if (temp == root_) {
-            delete temp;
-            root_ = nullptr;
-        } else {
-            if (temp->getParent() != nullptr) {
-                if (temp->getParent()->getKey() > key) {
-                    temp->getParent()->setLeft(nullptr);
-                } else {
-                    temp->getParent()->setRight(nullptr);
-                }
-                temp->setParent(nullptr);
+    }
+
+    if (node->getLeft() && node->getRight()) {
+        nodeSwap(node, predecessor(node));
+    }
+
+    if (node->getLeft() == nullptr && node->getRight() == nullptr) {
+        if (node->getParent()) {
+            if (node->getParent()->getKey < key) [
+                node->getParent()->setLeft(nullptr);
+            ]
+            else {
+                node->getParent()->setRight(nullptr);
             }
-            temp->setLeft(nullptr);
-            temp->setRight(nullptr);
-            delete temp;
         }
-    } else if (temp->getLeft() != nullptr && temp->getRight() == nullptr)  // left child node
-    {
-        nodeSwap(temp, temp->getLeft());
-        remove(temp->getKey());
-    } else if (temp->getLeft() == nullptr && temp->getRight() != nullptr)  // right child node
-    {
-        nodeSwap(temp, temp->getRight());
-        remove(temp->getKey());
-    } else  // two child nodes
-    {
-        nodeSwap(predecessor(temp), temp);
-        remove(temp->getKey());
+        else {
+            root_ = nullptr;
+        }
+
+        delete node;
+        return;
+    }
+    
+    if (node->getLeft() && node->getRight() == nullptr) {
+        if (node->getParent()) {
+            if (node->getParent()->getKey() < key) {
+                node->getParent()->setLeft(node->getLeft());
+                node->getParent()->getLeft()->setParent(node->getParent());
+            }
+            else {
+                node->getParent()->setRight(node->getLeft());
+                node->getParent()->getRight()->setParent(node->getParent());
+            }
+        }
+        else {
+            root_ = node->getLeft();
+            root_->setParent(nullptr);
+        }
+
+        delete node;
+        return;
+    }
+
+    if (node->getLeft() == nullptr && node->getRight()) {
+        if (node->getParent()) {
+            if (node->getParent()->getKey() < key) {
+                node->getParent()->setLeft(node->getRight());
+                node->getParent()->getLeft()->setParent(node->getParent());
+            }
+            else {
+                node->getParent()->setRight(node->getRight());
+                node->getParent()->getRight()->setParent(node->getParent());
+            }
+        }
+        else {
+            root_ = node->getRight();
+            root_->setParent(nullptr);
+        }
+
+        delete node;
+        return;
     }
 }
 
