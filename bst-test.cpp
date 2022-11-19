@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 	bst.insert(std::make_pair(3, 1.0));
     bst.print();
 	bst.remove(1);
-    bst.print()
+    bst.print();
 
     // AVL Tree Tests
     AVLTree<char,int> at;
