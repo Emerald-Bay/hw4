@@ -486,7 +486,7 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
             parent->getLeft()->setRight(nullptr);
         }
         else {
-            std::cout << "Bigger insert : " << keyValuePair.first << std::endl;
+            std::cout << "Smaller insert : " << keyValuePair.first << std::endl;
             parent->setRight(new Node<Key, Value>(keyValuePair.first, keyValuePair.second, parent));
             parent->getRight()->setParent(parent);
             parent->getRight()->setLeft(nullptr);
