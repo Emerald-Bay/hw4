@@ -455,18 +455,14 @@ Value const & BinarySearchTree<Key, Value>::operator[](const Key& key) const
 */
 template<class Key, class Value>
 void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &keyValuePair) {
+    std::cout << keyValuePair.first << " is what we are working with :) \n";
+
     if (this->empty()) {
         this->root_ = new Node<Key, Value>(keyValuePair.first, keyValuePair.second, nullptr);
-        this->root_->setParent(nullptr);
-        this->root_->setLeft(nullptr);
-        this->root_->setRight(nullptr);
-
-        return;
     }
     else {
         Node<Key, Value>* node = this->root_;
         Node<Key, Value>* parent;
-
 
         while (node) {
             std::cout << "Last Node to work is " << node->getKey() << std::endl;
