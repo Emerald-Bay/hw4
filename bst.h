@@ -502,6 +502,7 @@ void BinarySearchTree<Key, Value>::remove(const Key & key) {
     }
 
     if (node->getLeft() && node->getRight()) {
+        std::cout << "Swapped node " << node->getKey() << " and " << predecessor(node)->getKey() << std::endl;
         nodeSwap(node, predecessor(node));
     }
 
