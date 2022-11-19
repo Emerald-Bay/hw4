@@ -582,7 +582,7 @@ BinarySearchTree<Key, Value>::predecessor(Node<Key, Value>* current)
         }
 
         while (current->getParent()) {
-            if (current->getParent()->getRight() = current) {
+            if (current->getParent()->getRight() == current) {
                 return current->getParent();
             }
             current = current->getParent();
