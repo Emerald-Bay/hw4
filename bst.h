@@ -508,7 +508,9 @@ void BinarySearchTree<Key, Value>::remove(const Key & key) {
                 if (node->getParent()->getKey() < key) {
                     node->getParent()->setRight(nullptr);
                 }
-                else node->getParent()->setLeft(nullptr);
+                else {
+                    node->getParent()->setLeft(nullptr);
+                }
 
                 node->setParent(nullptr);
             }
@@ -530,7 +532,6 @@ void BinarySearchTree<Key, Value>::remove(const Key & key) {
         this->nodeSwap(this->predecessor(node), node);
         this->remove(node->getKey());
     }
-
 }
 
 template<class Key, class Value>
