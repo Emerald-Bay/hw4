@@ -496,7 +496,7 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
 template<typename Key, typename Value>
 void BinarySearchTree<Key, Value>::remove(const Key & key) {
     Node<Key, Value>* node = internalFind(key);
-    if (!(node)) return; //Node is not in tree
+    if (node == nullptr) return; //Node is not in tree
 
     if (node->getLeft() == nullptr && node->getRight() == nullptr) { //No child nodes
         if (node == this->root_) {
