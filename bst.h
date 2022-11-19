@@ -381,7 +381,7 @@ BinarySearchTree<Key, Value>::~BinarySearchTree()
 template<class Key, class Value>
 bool BinarySearchTree<Key, Value>::empty() const
 {
-    return root_ == NULL;
+    return this->root_ == nullptr;
 }
 
 template<typename Key, typename Value>
@@ -496,9 +496,11 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
 template<typename Key, typename Value>
 void BinarySearchTree<Key, Value>::remove(const Key & key) {
     Node<Key, Value>* node = internalFind(key);
-    if (node == nullptr) return; //Node is not in tree
 
-    if (node->getLeft() == nullptr && node->getRight() == nullptr) { //No child nodes
+    if (node == nullptr) { //Node is not in tree
+        return;
+    }
+    else if (node->getLeft() == nullptr && node->getRight() == nullptr) { //No child nodes
         if (node == this->root_) {
             delete node;
             this->root_ = nullptr;
@@ -521,16 +523,16 @@ void BinarySearchTree<Key, Value>::remove(const Key & key) {
         }
     }
     else if (node->getLeft() && (node->getRight() == nullptr)) { //Only left child node
-        this->nodeSwap(node, node->getLeft());
+        nodeSwap(node, node->getLeft());
         remove(node->getKey());
     }
     else if ((node->getLeft() == nullptr) && node->getRight()) { //Only right child node
-        this->nodeSwap(node, node->getRight());
-        this->remove(node->getKey());
+        nodeSwap(node, node->getRight());
+        remove(node->getKey());
     }
     else { //Two children
-        this->nodeSwap(this->predecessor(node), node);
-        this->remove(node->getKey());
+        nodeSwap(predecessor(node), node);
+        remove(node->getKey());
     }
 }
 
