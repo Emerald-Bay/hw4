@@ -697,7 +697,7 @@ bool BinarySearchTree<Key, Value>::isBalanced_Helper(Node<Key, Value>* node) con
     int leftHeight = isBalanced_Height(node->left_);
     int rightHeight = isBalanced_Height(node->right_);
 
-    if (std::abs(leftHeight - rightHeight) <= 1 && isBalanced_Helper(node->left_) && isBalanced_Helper(node->right_) {
+    if (std::abs(leftHeight - rightHeight) <= 1 && isBalanced_Helper(node->left_) && isBalanced_Helper(node->right_)) {
         return true;
     }
 
