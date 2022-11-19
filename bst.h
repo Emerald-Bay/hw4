@@ -511,7 +511,7 @@ void BinarySearchTree<Key, Value>::remove(const Key & key) {
         this->remove(node->getKey());
     }
     else { //No child nodes
-        if (node = this->root_) {
+        if (node == this->root_) {
             delete node;
             this->root_ = nullptr;
         }
