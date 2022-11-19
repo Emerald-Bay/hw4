@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
     for(BinarySearchTree<char,int>::iterator it = bt.begin(); it != bt.end(); ++it) {
         cout << it->first << " " << it->second << endl;
     }
+    
     if(bt.find('b') != bt.end()) {
         cout << "Found b" << endl;
     }
