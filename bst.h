@@ -455,8 +455,6 @@ Value const & BinarySearchTree<Key, Value>::operator[](const Key& key) const
 */
 template<class Key, class Value>
 void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &keyValuePair) {
-    std::cout << keyValuePair.first << " is what we are working with :) \n";
-
     if (this->empty()) {
         this->root_ = new Node<Key, Value>(keyValuePair.first, keyValuePair.second, nullptr);
     }
@@ -465,15 +463,12 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
         Node<Key, Value>* parent;
 
         while (node) {
-            std::cout << "Last Node to work is " << node->getKey() << std::endl;
             parent = node;
             if (node->getKey() > keyValuePair.first) {
                 node = node->getLeft();
-                std::cout << "                                      Left" << std::endl;
             }
             else if (node->getKey() < keyValuePair.first) {
                 node = node->getRight();
-                std::cout << "                                      Right" << std::endl;
             }
             else {
                 node->setValue(keyValuePair.second);
@@ -481,14 +476,12 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
             }
         }
         if (parent->getKey() > keyValuePair.first) {
-            std::cout << "Bigger insert : " << keyValuePair.first << std::endl;
             parent->setLeft(new Node<Key, Value>(keyValuePair.first, keyValuePair.second, parent));
             parent->getLeft()->setParent(parent);
             parent->getLeft()->setLeft(nullptr);
             parent->getLeft()->setRight(nullptr);
         }
         else {
-            std::cout << "Smaller insert : " << keyValuePair.first << std::endl;
             parent->setRight(new Node<Key, Value>(keyValuePair.first, keyValuePair.second, parent));
             parent->getRight()->setParent(parent);
             parent->getRight()->setLeft(nullptr);
