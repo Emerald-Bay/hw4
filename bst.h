@@ -203,8 +203,8 @@ public:
     void remove_HelperNode (Node<Key, Value>* node);
     void clear(); //TODO
     void clear_Helper(Node<Key, Value>* node);
-    bool isBalanced() const; //TODO
-    bool isBalanced_Helper(Node<Key, Value>* node) const;
+    bool isBalanced(); //TODO
+    bool isBalanced_Helper(Node<Key, Value>* node);
     int isBalanced_Height(Node<Key, Value>* node);
     void print() const;
     bool empty() const;
@@ -685,7 +685,7 @@ Node<Key, Value>* BinarySearchTree<Key, Value>::internalFind(const Key& key) con
  * Return true iff the BST is balanced.
  */
 template<typename Key, typename Value>
-bool BinarySearchTree<Key, Value>::isBalanced() const
+bool BinarySearchTree<Key, Value>::isBalanced()
 {
     if (this->empty()) return true;
 
@@ -693,7 +693,7 @@ bool BinarySearchTree<Key, Value>::isBalanced() const
 }
 
 template<typename Key, typename Value> 
-bool BinarySearchTree<Key, Value>::isBalanced_Helper(Node<Key, Value>* node) const {
+bool BinarySearchTree<Key, Value>::isBalanced_Helper(Node<Key, Value>* node) {
     int leftHeight = isBalanced_Height(node->left_);
     int rightHeight = isBalanced_Height(node->right_);
 
