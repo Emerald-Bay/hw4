@@ -461,6 +461,7 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
 
         return;
     }
+    std::cout << keyValuePair.key << std::endl;
 
     return insert_Helper(keyValuePair, this->root_);
 }
