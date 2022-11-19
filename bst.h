@@ -461,7 +461,7 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
 
         return;
     }
-    std::cout << "Inset : " << keyValuePair.first << std::endl;
+    std::cout << "Insert : " << keyValuePair.first << std::endl;
 
     return insert_Helper(keyValuePair, this->root_);
 }
@@ -472,6 +472,7 @@ void BinarySearchTree<Key, Value>::insert_Helper(const std::pair<const Key, Valu
     std::cout << "Insert Helper : " << keyValuePair.first << std::endl;
 
     if (parent->getKey() > keyValuePair.first) {
+        std::cout << "Right : " << keyValuePair.first << std::endl;
         if (parent->getLeft()) {
             this->insert_Helper(keyValuePair, parent->getLeft());
         }
@@ -480,6 +481,7 @@ void BinarySearchTree<Key, Value>::insert_Helper(const std::pair<const Key, Valu
         }
     }
     else if (parent->getKey() < keyValuePair.first) {
+        std::cout << "Left : " << keyValuePair.first << std::endl;
         if (parent->getRight()) {
             this->insert_Helper(keyValuePair, parent->getRight());
         }
@@ -488,6 +490,7 @@ void BinarySearchTree<Key, Value>::insert_Helper(const std::pair<const Key, Valu
         }
     }
     else {
+        std::cout << "Already Exists : " << keyValuePair.first << std::endl;
         parent->setValue(keyValuePair.second);
     }
 
