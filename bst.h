@@ -204,7 +204,7 @@ public:
     void clear(); //TODO
     void clear_Helper(Node<Key, Value>* node);
     bool isBalanced() const; //TODO
-    bool isBalanced_Helper(Node<Key, Value>* node);
+    bool isBalanced_Helper(Node<Key, Value>* node) const;
     int isBalanced_Height(Node<Key, Value>* node);
     void print() const;
     bool empty() const;
@@ -689,11 +689,11 @@ bool BinarySearchTree<Key, Value>::isBalanced() const
 {
     if (this->empty()) return true;
 
-    return this->isBalanced_Helper(this->root_);
+    return this->isBalanced_Helper(root_);
 }
 
 template<typename Key, typename Value> 
-bool BinarySearchTree<Key, Value>::isBalanced_Helper(Node<Key, Value>* node) {
+bool BinarySearchTree<Key, Value>::isBalanced_Helper(Node<Key, Value>* node) const {
     int leftHeight = isBalanced_Height(node->getLeft());
     int rightHeight = isBalanced_Height(node->getRight());
 
@@ -708,7 +708,7 @@ template<typename Key, typename Value>
 int BinarySearchTree<Key, Value>::isBalanced_Height(Node<Key, Value>* node) {
     if (!node) return 0;
     
-    return 1 = std::max(isBalanced_Height(node->getLeft()), isBalanced_Height(node->getRight()));
+    return 1 + std::max(isBalanced_Height(node->getLeft()), isBalanced_Height(node->getRight()));
 }
 
 
