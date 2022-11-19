@@ -470,11 +470,11 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
             parent = node;
             if (node->getKey() > keyValuePair.first) {
                 node = node->getLeft();
-                std::cout << "Right" << std::endl;
+                std::cout << "                                      Right" << std::endl;
             }
             else if (node->getKey() < keyValuePair.first) {
                 node = node->getRight();
-                std::cout << "Left" << std::endl;
+                std::cout << "                                      Left" << std::endl;
             }
             else {
                 node->setValue(keyValuePair.second);
