@@ -28,12 +28,13 @@ int main(int argc, char *argv[])
     bt.remove('b');
 
 
-    BinarySearchTree<int, double> bst;
-	bst.insert(std::make_pair(1, 1.0));
+	BinarySearchTree<int, double> bst;
+	bst.insert(std::make_pair(5, 1.0));
 	bst.insert(std::make_pair(2, 1.0));
-	bst.insert(std::make_pair(3, 1.0));
+	bst.insert(std::make_pair(6, 1.0));
+	bst.insert(std::make_pair(4, 1.0));
     bst.print();
-	bst.remove(1);
+	bst.remove(5);
     bst.print();
 
     // AVL Tree Tests
