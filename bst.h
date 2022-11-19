@@ -197,7 +197,6 @@ public:
     BinarySearchTree(); //TODO
     virtual ~BinarySearchTree(); //TODO
     virtual void insert(const std::pair<const Key, Value>& keyValuePair); //TODO
-    void insert_Helper(const std::pair<const Key, Value> &keyValuePair, Node<Key, Value>* parent);
     virtual void remove(const Key& key); //TODO
     void remove_Helper(const Key& key, Node<Key, Value>* parent);
     void remove_HelperNode (Node<Key, Value>* node);
@@ -461,45 +460,38 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
 
         return;
     }
-    std::cout << "Insert : " << keyValuePair.first << std::endl;
-
-    return insert_Helper(keyValuePair, this->root_);
-}
-
-template<class Key, class Value>
-void BinarySearchTree<Key, Value>::insert_Helper(const std::pair<const Key, Value> &keyValuePair, Node<Key, Value>* parent) 
-{
-    std::cout << "Insert Helper : " << keyValuePair.first << std::endl;
-
-    if (parent->getKey() > keyValuePair.first) {
-        std::cout << "Right : " << keyValuePair.first << std::endl;
-        if (parent->getLeft()) {
-            this->insert_Helper(keyValuePair, parent->getLeft());
-        }
-        else {
-            parent->setLeft(new Node<Key, Value>(keyValuePair.first, keyValuePair.second, parent));
-        }
-    }
-    else if (parent->getKey() < keyValuePair.first) {
-        std::cout << "Left : " << keyValuePair.first << std::endl;
-        std::cout << "Parent is " << parent->getKey() << std::endl;
-        if (parent->getRight()) {
-            std::cout << "Left Travel : " << keyValuePair.first << std::endl;
-            this->insert_Helper(keyValuePair, parent->getRight());
-        }
-        else {
-            std::cout << "Left Child : " << keyValuePair.first << std::endl;
-            parent->setRight(new Node<Key, Value>(keyValuePair.first, keyValuePair.second, parent));
-        }
-    }
     else {
-        std::cout << "Already Exists : " << keyValuePair.first << std::endl;
-        parent->setValue(keyValuePair.second);
+        Node<Key, Value>* node = this->root_;
+        Node<Key, Value>* parent;
+
+        while (node) {
+            parent = node;
+            if (node->getKey() > keyValuePair.first) {
+                node = node->getLeft();
+            }
+            else if (node->getKey() < keyValuePair.first) {
+                node = node->getRight();
+            }
+            else {
+                node->setValue(keyValuePair.second);
+                return;
+            }
+        }
+
+        if (parent->getKey() > keyValuePair.first) {
+            parent->setLeft(new Node<Key, Value>(keyValuePair.first, keyValuePair.second, parent));
+            parent->getLeft()->setParent(parent);
+            parent->getLeft()->setLeft(nullptr);
+            parent->getLeft()->setRight(nullptr);
+        }
+        else {
+            parent->setRight(new Node<Key, Value>(keyValuePair.first, keyValuePair.second, parent));
+            parent->getRight()->setParent(parent);
+            parent->getRight()->setLeft(nullptr);
+            parent->getRight()->setRight(nullptr);
+        }
     }
-
-    return;
 }
-
 
 /**
 * A remove method to remove a specific key from a Binary Search Tree.
