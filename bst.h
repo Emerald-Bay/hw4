@@ -461,7 +461,7 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
 
         return;
     }
-    std::cout << "Inset : " << keyValuePair.key << std::endl;
+    std::cout << "Inset : " << keyValuePair.first << std::endl;
 
     return insert_Helper(keyValuePair, this->root_);
 }
@@ -469,7 +469,7 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
 template<class Key, class Value>
 void BinarySearchTree<Key, Value>::insert_Helper(const std::pair<const Key, Value> &keyValuePair, Node<Key, Value>* parent) 
 {
-    std::cout << "Insert Helper : " << keyValuePair.key << std::endl;
+    std::cout << "Insert Helper : " << keyValuePair.first << std::endl;
 
     if (parent->getKey() > keyValuePair.first) {
         if (parent->getLeft()) {
