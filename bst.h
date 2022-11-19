@@ -498,7 +498,7 @@ void BinarySearchTree<Key, Value>::remove(const Key & key) {
     Node<Key, Value>* node = internalFind(key);
     if (node) return; //Node is not in tree
 
-    if (node->getLeft() && (node->getRight() == nullptr) { //Only left child node
+    if (node->getLeft() && (node->getRight() == nullptr)) { //Only left child node
         this->nodeSwap(node, node->getLeft());
         remove(node->getKey());
     }
@@ -551,7 +551,7 @@ BinarySearchTree<Key, Value>::predecessor(Node<Key, Value>* current)
             current = current->getParent();
         }
 
-        if (!(current->getRight() || current->getParent()) {
+        if (!(current->getRight() || current->getParent())) {
             return nullptr;
         }
 
