@@ -604,20 +604,14 @@ BinarySearchTree<Key, Value>::successor(Node<Key, Value>* current)
         return current;
     }
     else {
-        Node<Key, Value>* buff;
+        Node<Key, Value>* buff = current->getParent();
 
-        while (current->getParent() != nullptr) {
-            buff = current->getParent()->getLeft();
-
-            if (buff == current) {
-                return current->getParent();
-            }
-            else {
-                current = current->getParent();
-            }
+        while (buff && current == buff->getRight()) {
+            current = buff;
+            buff = buff->getParent();
         }
 
-        return current->getParent();
+        return buff;
     }
 }
 
