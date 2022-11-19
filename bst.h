@@ -694,10 +694,10 @@ bool BinarySearchTree<Key, Value>::isBalanced() const
 
 template<typename Key, typename Value> 
 bool BinarySearchTree<Key, Value>::isBalanced_Helper(Node<Key, Value>* node) const {
-    int leftHeight = isBalanced_Height(node->getLeft());
-    int rightHeight = isBalanced_Height(node->getRight());
+    int leftHeight = isBalanced_Height(node->left_);
+    int rightHeight = isBalanced_Height(node->right_);
 
-    if (std::abs(leftHeight - rightHeight) <= 1 && isBalanced_Helper(node->getLeft()) && isBalanced_Helper(node->getRight())) {
+    if (std::abs(leftHeight - rightHeight) <= 1 && isBalanced_Helper(node->left_) && isBalanced_Helper(node->right_) {
         return true;
     }
 
