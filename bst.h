@@ -498,30 +498,18 @@ void BinarySearchTree<Key, Value>::remove(const Key & key) {
     Node<Key, Value>* node = internalFind(key);
     if (!(node)) return; //Node is not in tree
 
-    if (node->getLeft() && (node->getRight() == nullptr)) { //Only left child node
-        this->nodeSwap(node, node->getLeft());
-        remove(node->getKey());
-    }
-    else if ((node->getLeft() == nullptr) && node->getRight()) { //Only right child node
-        this->nodeSwap(node, node->getRight());
-        this->remove(node->getKey());
-    }
-    else if (node->getLeft() && node->getRight()) { //Two children
-        this->nodeSwap(this->predecessor(node), node);
-        this->remove(node->getKey());
-    }
-    else { //No child nodes
+    if (node->getLeft() == nullptr && node->getRight() == nullptr) { //No child nodes
         if (node == this->root_) {
             delete node;
             this->root_ = nullptr;
         }
         else {
-            if (node->getParent() && node->getParent()->getKey() > key) {
-                node->getParent()->setLeft(nullptr);
-                node->setParent(nullptr);
-            }
-            else if (node->getParent()) {
-                node->getParent()->setRight(nullptr);
+            if (node->getParent()) {
+                if (node->getParent()->getKey() < key) {
+                    node->getParent()->setRight(nullptr);
+                }
+                else node->getParent()->setLeft(nullptr);
+
                 node->setParent(nullptr);
             }
 
@@ -529,6 +517,18 @@ void BinarySearchTree<Key, Value>::remove(const Key & key) {
             node->setRight(nullptr);
             delete node;
         }
+    }
+    else if (node->getLeft() && (node->getRight() == nullptr)) { //Only left child node
+        this->nodeSwap(node, node->getLeft());
+        remove(node->getKey());
+    }
+    else if ((node->getLeft() == nullptr) && node->getRight()) { //Only right child node
+        this->nodeSwap(node, node->getRight());
+        this->remove(node->getKey());
+    }
+    else { //Two children
+        this->nodeSwap(this->predecessor(node), node);
+        this->remove(node->getKey());
     }
 
 }
