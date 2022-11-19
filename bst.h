@@ -628,6 +628,7 @@ template<typename Key, typename Value>
 void BinarySearchTree<Key, Value>::clear()
 {
     this->clear_Helper(this->root_);
+    this->root_ = nullptr;
 }
 
 template<typename Key, typename Value>
