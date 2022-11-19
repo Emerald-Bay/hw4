@@ -482,7 +482,7 @@ void BinarySearchTree<Key, Value>::insert_Helper(const std::pair<const Key, Valu
     }
     else if (parent->getKey() < keyValuePair.first) {
         std::cout << "Left : " << keyValuePair.first << std::endl;
-        std::cout << "Parent is " << parent->getLeft() << std::endl;
+        std::cout << "Parent is " << parent->getKey() << std::endl;
         if (parent->getRight()) {
             std::cout << "Left Travel : " << keyValuePair.first << std::endl;
             this->insert_Helper(keyValuePair, parent->getRight());
