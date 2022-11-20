@@ -497,7 +497,7 @@ template<typename Key, typename Value>
 void BinarySearchTree<Key, Value>::remove(const Key & key) {
     Node<Key, Value>* node = internalFind(key);
 
-    if (!node) { //If node is not in BST
+    if (node) { //If node is not in BST
         return;
     }
 
@@ -706,7 +706,7 @@ bool BinarySearchTree<Key, Value>::isBalanced_Helper(Node<Key, Value>* node) {
         return true;
     }
 
-    return true;
+    return false;
 }
 
 template<typename Key, typename Value>
