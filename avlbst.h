@@ -546,7 +546,7 @@ void AVLTree<Key, Value>::remove_Helper(AVLNode<Key, Value>* node, int height) {
     AVLNode<Key, Value>* parent = node->getParent();
 
     if(parent) {
-        width = parent->getLeft() == node ? 1 : -1;
+        width = parent->getLeft() == node ? 1 : 0;
     }
 
     if (height == 1) {
