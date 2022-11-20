@@ -455,9 +455,9 @@ void AVLTree<Key, Value>::rotateRight(AVLNode<Key, Value>*& node) {
 
 template<class Key, class Value>
 void AVLTree<Key, Value>::insert_Helper(AVLNode<Key, Value>* parent, AVLNode<Key, Value>* node) {
-    AVLNode<Key, Value>* grandpa = parent->getParent();
+    if (parent == nullptr || parent->getParent() == nullptr) return;
 
-    if (parent && grandpa) return;
+    AVLNode<Key, Value>* grandpa = parent->getParent();
 
     if(grandpa->getLeft() == parent) {
         grandpa->updateBalance(-1);
