@@ -206,11 +206,13 @@ void AVLTree<Key, Value>::insert (const std::pair<const Key, Value> &new_item)
         }
     }
     else { //AVL Tree is empty
-        this->root_ = new AVLNode<Key, Value>(new_item.first, new_item.second, nullptr);
+        AVLNode<Key, Value>* buff = new AVLNode<Key, Value>(new_item.first, new_item.second, nullptr);
+        
+        this->root_ = buff;
 
-        this->root_->setBalance(0);
-        this->root_->setLeft(nullptr);
-        this->root_->setRight(nullptr);
+        buff->setBalance(0);
+        buff->setLeft(nullptr);
+        buff->setRight(nullptr);
     }
 }
 
@@ -330,7 +332,7 @@ void AVLTree<Key, Value>:: remove(const Key& key)
                 node->getLeft()->setParent(node->getParent());
 
                 if (node->getParent()->getRight() == node) {
-                    node->getPatent()->setRight(node->getLeft());
+                    node->getParent()->setRight(node->getLeft());
                 }
                 else {
                     node->getParent()->setLeft(node->getLeft());
