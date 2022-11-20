@@ -573,7 +573,7 @@ BinarySearchTree<Key, Value>::predecessor(Node<Key, Value>* current)
         return current;
     }
     else {
-        if (current->getParent() == nullptr) {
+        if (current->getParent() == NULL) {
             return nullptr;
         }
 
