@@ -602,8 +602,8 @@ void AVLTree<Key, Value>::remove_Helper(AVLNode<Key, Value>* node, int height) {
 
             if (!pivot->getBalance()) {
                 rotateLeft(node);
-                pivot->setBalance(1);
-                node->setBalance(-1);
+                pivot->setBalance(-1);
+                node->setBalance(1);
             }
             else if (pivot->getBalance() == -1) {
                 AVLNode<Key, Value>* grandpa = pivot->getLeft();
