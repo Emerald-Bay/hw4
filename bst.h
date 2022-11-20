@@ -706,7 +706,7 @@ bool BinarySearchTree<Key, Value>::isBalanced_Helper(Node<Key, Value>* node) {
         return true;
     }
 
-    return false;
+    return true;
 }
 
 template<typename Key, typename Value>
