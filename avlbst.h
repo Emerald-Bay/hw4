@@ -556,18 +556,22 @@ void AVLTree<Key, Value>::remove_Helper(AVLNode<Key, Value>* node, int height) {
             std::cout << "test -2\n";
             AVLNode<Key, Value>* pivot = node->getLeft();
 
+            std::cout << "test -- test\n";
             if (!pivot->getBalance()) {
+                std::cout << "test 1\n";
                 rotateRight(node);
                 pivot->setBalance(1);
                 node->setBalance(-1);
             }
             else if (pivot->getBalance() == -1) {
+                std::cout << "test 2\n";
                 rotateRight(node);
                 pivot->setBalance(0);
                 node->setBalance(0);
                 remove_Helper(parent, width);
             }
             else if (pivot->getBalance() == 1) {
+                std::cout << "test 3\n";
                 AVLNode<Key, Value>* grandpa = pivot->getRight();
 
                 rotateLeft(pivot);
@@ -593,11 +597,9 @@ void AVLTree<Key, Value>::remove_Helper(AVLNode<Key, Value>* node, int height) {
             }
         }
         else if (node->getBalance() + height == -1) {
-            std::cout << "test -1\n";
             node->setBalance(-1);
         }
         else if (node->getBalance() + height == 0) {
-            std::cout << "test 0\n";
             node->setBalance(0);
             remove_Helper(parent, width);
         }
