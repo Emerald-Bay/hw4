@@ -557,7 +557,7 @@ void AVLTree<Key, Value>::remove_Helper(AVLNode<Key, Value>* node, int height) {
             AVLNode<Key, Value>* pivot = node->getLeft();
 
             std::cout << "test -- test\n";
-            if (!pivot->getBalance()) {
+            if (!(pivot->getBalance())) {
                 std::cout << "test 1\n";
                 rotateRight(node);
                 pivot->setBalance(1);
