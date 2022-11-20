@@ -308,7 +308,7 @@ void AVLTree<Key, Value>:: remove(const Key& key)
             delete node;
             remove_Helper(parent, height);
         }
-        else { //Has two child nodes
+        else if (node->getLeft() && node->getRight()) { //Has two child nodes
             AVLNode<Key, Value>* prev = (AVLNode<Key, Value>*)(this->predecessor(node));
             
             nodeSwap((AVLNode<Key, Value>*)(node), prev);
