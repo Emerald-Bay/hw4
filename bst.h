@@ -462,7 +462,7 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
 
         while (node) { //Find place to insert new node or replace value via binary search
             parent = node;
-            if (node->getKey() > keyValuePair.first) {
+            if (node->getKey() > keyValuePair.second) {
                 node = node->getLeft();
             }
             else if (node->getKey() < keyValuePair.first) {
@@ -497,7 +497,7 @@ template<typename Key, typename Value>
 void BinarySearchTree<Key, Value>::remove(const Key & key) {
     Node<Key, Value>* node = internalFind(key);
 
-    if (node) { //If node is not in BST
+    if (!node) { //If node is not in BST
         return;
     }
 
