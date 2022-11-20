@@ -590,7 +590,6 @@ void AVLTree<Key, Value>::remove_Helper(AVLNode<Key, Value>* node, int height) {
                 }
 
                 removeFix(parent, width);
-                removeFix(parent, width);
             }
         }
         else if (node->getBalance() + height == 1) {
