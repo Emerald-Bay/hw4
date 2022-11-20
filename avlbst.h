@@ -409,7 +409,19 @@ template<class Key, class Value>
 void AVLTree<Key, Value>::rotateRight(AVLNode<Key, Value>*& node) {
     AVLNode<Key, Value>* child = node->getLeft();
 
-    if(node == node->getParent()->getLeft()){
+    if(node->getParent() == nullptr){
+        this->root_ = child;
+        child->setParent(nullptr);
+        node->setParent(child);
+        node->setLeft(nullptr);
+        if(child->getRight()){
+            AVLNode<Key, Value>* orphan = child->getRight();
+            orphan->setParent(node);
+            node->setLeft(orphan);
+        }
+        node->getParent()->setRight(node);
+    }
+    else if(node == node->getParent()->getLeft()){
         AVLNode<Key, Value>* child = node->getLeft();
         child->setParent(node->getParent());
         node->getParent()->setLeft(child);
@@ -436,18 +448,6 @@ void AVLTree<Key, Value>::rotateRight(AVLNode<Key, Value>*& node) {
         }
         else{
             node->setLeft(nullptr);
-        }
-        node->getParent()->setRight(node);
-    }
-    else if(node->getParent() == nullptr){
-        this->root_ = child;
-        child->setParent(nullptr);
-        node->setParent(child);
-        node->setLeft(nullptr);
-        if(child->getRight()){
-            AVLNode<Key, Value>* orphan = child->getRight();
-            orphan->setParent(node);
-            node->setLeft(orphan);
         }
         node->getParent()->setRight(node);
     }
