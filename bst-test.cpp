@@ -27,16 +27,6 @@ int main(int argc, char *argv[])
     cout << "Erasing b" << endl;
     bt.remove('b');
 
-
-	BinarySearchTree<int, double> bst;
-	bst.insert(std::make_pair(5, 1.0));
-	bst.insert(std::make_pair(2, 1.0));
-	bst.insert(std::make_pair(6, 1.0));
-	bst.insert(std::make_pair(4, 1.0));
-    bst.print();
-	bst.remove(5);
-    bst.print();
-
     // AVL Tree Tests
     AVLTree<char,int> at;
     at.insert(std::make_pair('a',1));
