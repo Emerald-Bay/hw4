@@ -228,6 +228,7 @@ void AVLTree<Key, Value>:: remove(const Key& key)
 
     if (node) {
         if (node->getLeft() == nullptr && node->getRight() == nullptr) { //No child nodes
+        std::cout << "0 children\n";
             AVLNode<Key, Value>* parent = (AVLNode<Key, Value>*)(node->getParent());
 
             if (parent) {
@@ -253,6 +254,7 @@ void AVLTree<Key, Value>:: remove(const Key& key)
             remove_Helper(parent, height);
         }
         else if(node->getLeft() && node->getRight() == nullptr) { //Only left child node
+            std::cout << "left child\n";
             AVLNode<Key, Value>* parent = (AVLNode<Key, Value>*)(node->getParent());
 
             if (parent) {
@@ -281,6 +283,7 @@ void AVLTree<Key, Value>:: remove(const Key& key)
             remove_Helper(parent, height);
         }
         else if(node->getLeft() == nullptr && node->getRight()) { //Only right child node
+        std::cout << "right child\n";
             AVLNode<Key, Value>* parent = (AVLNode<Key, Value>*)(node->getParent());
 
             if (parent) {
@@ -309,6 +312,7 @@ void AVLTree<Key, Value>:: remove(const Key& key)
             remove_Helper(parent, height);
         }
         else if (node->getLeft() && node->getRight()) { //Has two child nodes
+            std::cout << "two children\n";
             AVLNode<Key, Value>* prev = (AVLNode<Key, Value>*)(this->predecessor(node));
             
             nodeSwap((AVLNode<Key, Value>*)(node), prev);
