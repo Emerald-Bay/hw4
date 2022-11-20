@@ -523,8 +523,10 @@ void BinarySearchTree<Key, Value>::remove(const Key & key) {
         }
 
         std::cout << 3 << std::endl;
-        
+
         delete node;
+
+        std::cout "success?\n";
         return;
     }
     
