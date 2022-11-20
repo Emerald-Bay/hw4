@@ -558,7 +558,7 @@ void AVLTree<Key, Value>::remove_Helper(AVLNode<Key, Value>* node, int height) {
                 pivot->setBalance(0);
                 node->setBalance(0);
 
-                removeFix(parent, width);
+                remove_Helper(parent, width);
             }
             else if(pivot->getBalance() == 0) {
                 rotateLeft(node);
@@ -589,7 +589,7 @@ void AVLTree<Key, Value>::remove_Helper(AVLNode<Key, Value>* node, int height) {
                     node->setBalance(-1);
                 }
 
-                removeFix(parent, width);
+                remove_Helper(parent, width);
             }
         }
         else if (node->getBalance() + height == 1) {
@@ -598,7 +598,7 @@ void AVLTree<Key, Value>::remove_Helper(AVLNode<Key, Value>* node, int height) {
         else if (node->getBalance() + height == 0) {
             node->setBalance(0);
             
-            removeFix(parent, width);
+            remove_Helper(parent, width);
         }
     }
     else if (height == -1) {
@@ -610,7 +610,7 @@ void AVLTree<Key, Value>::remove_Helper(AVLNode<Key, Value>* node, int height) {
                 pivot->setBalance(0);
                 node->setBalance(0);
 
-                removeFix(parent, width);
+                remove_Helper(parent, width);
             }
             else if (!pivot->getBalance()) {
                 rotateRight(node);
@@ -637,7 +637,7 @@ void AVLTree<Key, Value>::remove_Helper(AVLNode<Key, Value>* node, int height) {
                     node->setBalance(1);
                 }
 
-                removeFix(parent, width);
+                remove_Helper(parent, width);
             }
         }
         else if (node->getBalance() + height == -1) {
@@ -646,7 +646,7 @@ void AVLTree<Key, Value>::remove_Helper(AVLNode<Key, Value>* node, int height) {
         else if (node->getBalance() + height == 0) {
             node->setBalance(0);
 
-            removeFix(parent, width);
+            remove_Helper(parent, width);
         }
     }
 }
