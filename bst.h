@@ -509,6 +509,7 @@ void BinarySearchTree<Key, Value>::remove(const Key & key) {
     if (node->getLeft() == nullptr && node->getRight() == nullptr) {
         std::cout << 1 << std::endl;
         if (node->getParent()) {
+            std::cout << 1 << std::endl;
             if (node->getParent()->getKey() < key) {
                 node->getParent()->setLeft(nullptr);
             }
@@ -517,9 +518,12 @@ void BinarySearchTree<Key, Value>::remove(const Key & key) {
             }
         }
         else {
+            std::cout << 2 << std::endl;
             root_ = nullptr;
         }
 
+        std::cout << 3 << std::endl;
+        
         delete node;
         return;
     }
