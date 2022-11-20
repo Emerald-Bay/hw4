@@ -555,47 +555,46 @@ void AVLTree<Key, Value>::remove_Helper(AVLNode<Key, Value>* node, int height) {
         if (node->getBalance() + height == -2) {
             std::cout << "test -2\n";
             AVLNode<Key, Value>* pivot = node->getLeft();
-
-            std::cout << "test -- test\n";
+            std::cout << "test Test" << std::endl;
+            std::cout << pivot << pivot->getBalance() << std::endl;
             if (!(pivot->getBalance())) {
                 std::cout << "test 1\n";
                 rotateRight(node);
                 pivot->setBalance(1);
                 node->setBalance(-1);
             }
-            std::cout << "test?\n";
-            // else if (pivot->getBalance() == -1) {
-            //     std::cout << "test 2\n";
-            //     rotateRight(node);
-            //     pivot->setBalance(0);
-            //     node->setBalance(0);
-            //     remove_Helper(parent, width);
-            // }
-            // else if (pivot->getBalance() == 1) {
-            //     std::cout << "test 3\n";
-            //     AVLNode<Key, Value>* grandpa = pivot->getRight();
+            else if (pivot->getBalance() == -1) {
+                std::cout << "test 2\n";
+                rotateRight(node);
+                pivot->setBalance(0);
+                node->setBalance(0);
+                remove_Helper(parent, width);
+            }
+            else if (pivot->getBalance() == 1) {
+                std::cout << "test 3\n";
+                AVLNode<Key, Value>* grandpa = pivot->getRight();
 
-            //     rotateLeft(pivot);
-            //     rotateRight(node);
+                rotateLeft(pivot);
+                rotateRight(node);
 
-            //     if (!grandpa->getBalance()) {
-            //         grandpa->setBalance(0);
-            //         pivot->setBalance(0);
-            //         node->setBalance(0);
-            //     }
-            //     else if (grandpa->getBalance() == -1) {
-            //         grandpa->setBalance(0);
-            //         pivot->setBalance(0);
-            //         node->setBalance(1);
-            //     }
-            //     else if (grandpa->getBalance() == 1) {
-            //         grandpa->setBalance(0);
-            //         pivot->setBalance(-1);
-            //         node->setBalance(0);
-            //     }
+                if (!grandpa->getBalance()) {
+                    grandpa->setBalance(0);
+                    pivot->setBalance(0);
+                    node->setBalance(0);
+                }
+                else if (grandpa->getBalance() == -1) {
+                    grandpa->setBalance(0);
+                    pivot->setBalance(0);
+                    node->setBalance(1);
+                }
+                else if (grandpa->getBalance() == 1) {
+                    grandpa->setBalance(0);
+                    pivot->setBalance(-1);
+                    node->setBalance(0);
+                }
 
-            //     remove_Helper(parent, width);
-            // }
+                remove_Helper(parent, width);
+            }
         }
         else if (node->getBalance() + height == -1) {
             node->setBalance(-1);
