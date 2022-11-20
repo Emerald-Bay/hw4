@@ -522,11 +522,9 @@ void BinarySearchTree<Key, Value>::remove(const Key & key) {
             root_ = nullptr;
         }
 
-        std::cout << 3 << std::endl;
+        std::cout << node->getKey() << std::endl;
 
         delete node;
-
-        std::cout << "success?\n";
         return;
     }
     
