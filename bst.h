@@ -495,83 +495,66 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
 */
 template<typename Key, typename Value>
 void BinarySearchTree<Key, Value>::remove(const Key & key) {
-    Node<Key, Value>* hold = internalFind(key);
-    // If the node doesn't exist, remove does nothing and returns.
-    if (hold == NULL) {
+    Node<Key, Value>* node = internalFind(key);
+
+    if (!node) { //If node is not in BST
         return;
     }
 
-    // If the node we're looking at has 2 children, it swaps itself with it's predecessor.
-    if (hold->getRight() != NULL && hold->getLeft() != NULL) {
-        Node<Key, Value>* holder = predecessor(hold);
-        nodeSwap(hold, holder);
+    if (node->getLeft() != nullptr && node->getRight() != nullptr ) { //If node has two children
+        nodeSwap(node, predecessor(node));
     }
 
-    // Now, the node we're deleting is guaranteed to have 1 or 0 children.
-
-    // If the node has 0 children, we just delete it.
-    if (hold->getRight() == NULL && hold->getLeft() == NULL) {
-
-        // If the parent isn't null, we need to make sure that it's right or left pointer points to null.
-        if (hold->getParent() != NULL) {
-            if (hold->getParent()->getLeft() == hold) {
-                hold->getParent()->setLeft(NULL);
+    if (node->getLeft() != nullptr && node->getRight() == nullptr ) { //Only Left child
+        if (node->getParent()) {
+            Node<Key, Value>* parent = node->getParent();
+            if (node->getParent()->getLeft() != node) {
+                node->getParent()->setRight(node->getLeft());
+                parent->getRight()->setParent(parent);
             } else {
-                hold->getParent()->setRight(NULL);
+                node->getParent()->setLeft(node->getLeft());
+                parent->getLeft()->setParent(parent);
             }
-        } else {
-            // Otherwise, the root must equal NULL since it means the tree is empty.
-            root_ = NULL;
+        } else { //Must be the root node
+            root_ = node->getLeft();
+            node->getLeft()->setParent(NULL);
         }
 
-        // We delete the node and return.
-        delete hold;
+        delete node;
         return;
     }
 
-    // If the node has 1 right child, we promote it and delete the node we're deleting
-    if (hold->getRight() == NULL && hold->getLeft() != NULL) {
-        // If the parent isn't NULL, we promote the child by shifting around the pointers.
-        if (hold->getParent() != NULL) {
-            Node<Key, Value>* holder = hold->getParent();
-            if (hold->getParent()->getLeft() == hold) {
-                hold->getParent()->setLeft(hold->getLeft());
-                holder->getLeft()->setParent(holder);
+    if ( node->getLeft() == nullptr && node->getRight()) { //Only right child
+        if (node->getParent()) {
+            Node<Key, Value>* parent = node->getParent();
+            if (node->getParent()->getLeft() == node) {
+                node->getParent()->setLeft(node->getRight());
+                parent->getLeft()->setParent(parent);
             } else {
-                hold->getParent()->setRight(hold->getLeft());
-                holder->getRight()->setParent(holder);
+                node->getParent()->setRight(node->getRight());
+                parent->getRight()->setParent(parent);
             }
-        } else {
-            // Otherwise, we set the root as the child of the node we're deleting, since it will now be the only node in
-            // the tree.
-            root_ = hold->getLeft();
-            hold->getLeft()->setParent(NULL);
+        } else { //Must be the root node
+            root_ = node->getRight();
+            node->getRight()->setParent(nullptr);
         }
-        // Then, we delete the node and return.
-        delete hold;
+
+        delete node;
         return;
     }
 
-    // The below is the same process, but if there is 1 left child instead.
-    if (hold->getRight() != NULL && hold->getLeft() == NULL) {
-        // If the parent isn't NULL, we promote the child by shifting around the pointers.
-        if (hold->getParent() != NULL) {
-            Node<Key, Value>* holder = hold->getParent();
-            if (hold->getParent()->getLeft() == hold) {
-                hold->getParent()->setLeft(hold->getRight());
-                holder->getLeft()->setParent(holder);
+    if (node->getLeft() == nullptr && node->getRight() == nullptr) { //Node has no children
+        if (node->getParent()) {
+            if (node->getParent()->getLeft() == node) {
+                node->getParent()->setLeft(nullptr);
             } else {
-                hold->getParent()->setRight(hold->getRight());
-                holder->getRight()->setParent(holder);
+                node->getParent()->setRight(nullptr);
             }
-        } else {
-            // Otherwise, we set the root as the child of the node we're deleting, since it will now be the only node in
-            // the tree.
-            root_ = hold->getRight();
-            hold->getRight()->setParent(NULL);
+        } else { //Must be the root node
+            root_ = nullptr;
         }
-        // Then, we delete the node and return.
-        delete hold;
+
+        delete node;
         return;
     }
 }
