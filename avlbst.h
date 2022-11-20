@@ -537,116 +537,124 @@ void AVLTree<Key, Value>::insert_Helper(AVLNode<Key, Value>* parent, AVLNode<Key
 
 template<class Key, class Value>
 void AVLTree<Key, Value>::remove_Helper(AVLNode<Key, Value>* node, int height) {
-    std::cout << "test\n";
-    if(node == nullptr) {
+    //if n is null, return
+    if(n == NULL){
         return;
     }
-
-    int width = 0;
-
-    AVLNode<Key, Value>* parent = node->getParent();
-
-    if (parent) {
-        width = parent->getLeft() == node ? 1 : -1;
-    }
-
-    if (height == -1) {
-        std::cout << "height = -1\n";
-        if (node->getBalance() + height == -2) {
-            std::cout << "test -2\n";
-            AVLNode<Key, Value>* pivot = node->getLeft();
-            std::cout << "test Test" << std::endl;
-            std::cout << (pivot == nullptr) << std::endl;
-            if (!(pivot->getBalance())) {
-                std::cout << "test 1\n";
-                rotateRight(node);
-                pivot->setBalance(1);
-                node->setBalance(-1);
-            }
-            else if (pivot->getBalance() == -1) {
-                std::cout << "test 2\n";
-                rotateRight(node);
-                pivot->setBalance(0);
-                node->setBalance(0);
-                remove_Helper(parent, width);
-            }
-            else if (pivot->getBalance() == 1) {
-                std::cout << "test 3\n";
-                AVLNode<Key, Value>* grandpa = pivot->getRight();
-
-                rotateLeft(pivot);
-                rotateRight(node);
-
-                if (!grandpa->getBalance()) {
-                    grandpa->setBalance(0);
-                    pivot->setBalance(0);
-                    node->setBalance(0);
-                }
-                else if (grandpa->getBalance() == -1) {
-                    grandpa->setBalance(0);
-                    pivot->setBalance(0);
-                    node->setBalance(1);
-                }
-                else if (grandpa->getBalance() == 1) {
-                    grandpa->setBalance(0);
-                    pivot->setBalance(-1);
-                    node->setBalance(0);
-                }
-
-                remove_Helper(parent, width);
-            }
+    int ndiff = 0;
+    AVLNode<Key, Value>* p = n->getParent();
+    if(p != NULL) {
+        //get next recursive call's arguments before altering tree
+        if (n == p->getLeft()) {
+            ndiff = 1;
         }
-        else if (node->getBalance() + height == -1) {
-            node->setBalance(-1);
-        }
-        else if (node->getBalance() + height == 0) {
-            node->setBalance(0);
-            remove_Helper(parent, width);
+        else{
+            ndiff = -1;
         }
     }
-    else if (height == 1) {
-        if (node->getBalance() + height == 2) {
-            AVLNode<Key, Value>* pivot = node->getRight();
 
-            if (!pivot->getBalance()) {
-                rotateLeft(node);
-                pivot->setBalance(1);
-                node->setBalance(-1);
+    if (diff == -1) {
+        //case 1: b(n) + diff = -2
+        if (n->getBalance() + diff == -2) {
+            AVLNode<Key, Value> *c = n->getLeft();
+            //case 1a: b(c) == -1
+            if (c->getBalance() == -1) {
+                rotateRight(n);
+                n->setBalance(0);
+                c->setBalance(0);
+                removeFix(p, ndiff);
             }
-            else if (pivot->getBalance() == -1) {
-                AVLNode<Key, Value>* grandpa = pivot->getLeft();
-                
-                rotateRight(pivot);
-                rotateLeft(node);
-
-                if (!grandpa->getBalance()) {
-                    grandpa->setBalance(0);
-                    pivot->setBalance(0);
-                    node->setBalance(0);
-                }
-                else if (grandpa->getBalance() == -1) {
-                    grandpa->setBalance(0);
-                    pivot->setBalance(1);
-                    node->setBalance(0);
-                }
-                else if (grandpa->getBalance() == 1) {
-                    grandpa->setBalance(0);
-                    pivot->setBalance(0);
-                    node->setBalance(-1);
-                }
-
-                remove_Helper(parent, width);
+            //case 1b: b(c) == 0
+            else if (c->getBalance() == 0) {
+                rotateRight(n);
+                n->setBalance(-1);
+                c->setBalance(1);
             }
-            else if (pivot->getBalance() + height == 1) {
-                node->setBalance(1);
+            //case 1c: b(c) == 1
+            else if (c->getBalance() == 1) {
+                AVLNode<Key, Value> *g = c->getRight();
+                rotateLeft(c);
+                rotateRight(n);
+                if (g->getBalance() == 1) {
+                    n->setBalance(0);
+                    c->setBalance(-1);
+                    g->setBalance(0);
+                }
+                else if (g->getBalance() == 0) {
+                    n->setBalance(0);
+                    c->setBalance(0);
+                    g->setBalance(0);
+                }
+                else if (g->getBalance() == -1) {
+                    n->setBalance(1);
+                    c->setBalance(0);
+                    g->setBalance(0);
+                }
+                removeFix(p, ndiff);
             }
         }
-        else if (node->getBalance() + height == 1) {
-            node->setBalance(1);
+        //case 2: b(n) + diff == -1
+        else if (n->getBalance() + diff == -1) {
+            n->setBalance(-1);
         }
-        else if (node->getBalance() + height == 0) {
-            node->setBalance(0);
-            remove_Helper(parent, width);
+        //case 3: b(n) + diff == 0
+        else if (n->getBalance() + diff == 0) {
+            n->setBalance(0);
+            removeFix(p, ndiff);
+        }
+    }
+    //if n is parent's right child
+    else if (diff == 1) {
+        //case 1
+        if (n->getBalance() + diff == 2) {
+            AVLNode<Key, Value> *c = n->getRight();
+            //case 1a: b(c) == +1
+            if(c->getBalance() == 1) {
+                rotateLeft(n);
+                n->setBalance(0);
+                c->setBalance(0);
+                removeFix(p, ndiff);
+            }
+            //case 1b: b(c) == 0
+            else if(c->getBalance() == 0) {
+                rotateLeft(n);
+                n->setBalance(1);
+                c->setBalance(-1);
+            }
+            //case 1c: b(c) == 1
+            else if(c->getBalance() == -1) {
+                AVLNode<Key, Value> *g = c->getLeft();
+                rotateRight(c);
+                rotateLeft(n);
+                //if b(g) == -1
+                if (g->getBalance() == -1) {
+                    n->setBalance(0);
+                    c->setBalance(1); // -1?
+                    g->setBalance(0);
+                }
+                //if b(g) == 0)
+                else if (g->getBalance() == 0) {
+                    n->setBalance(0);
+                    c->setBalance(0);
+                    g->setBalance(0);
+                }
+                //if b(g) == 1
+                else if (g->getBalance() == 1) {
+                    n->setBalance(-1);
+                    c->setBalance(0);
+                    g->setBalance(0);
+                }
+                removeFix(p, ndiff);
+            }
+        }
+        //case 2: b(n) + diff == 1
+        else if (n->getBalance() + diff == 1) {
+            n->setBalance(1);
+        }
+        //case 3: b(n) + diff == 0
+        else if (n->getBalance() + diff == 0) {
+            n->setBalance(0);
+            removeFix(p, ndiff);
         }
     }
 }
