@@ -553,6 +553,7 @@ void AVLTree<Key, Value>::remove_Helper(AVLNode<Key, Value>* node, int height) {
     if (height == -1) {
         std::cout << "height = -1\n";
         if (node->getBalance() + height == -2) {
+            std::cout << "test -2\n";
             AVLNode<Key, Value>* pivot = node->getLeft();
 
             if (!pivot->getBalance()) {
@@ -592,15 +593,16 @@ void AVLTree<Key, Value>::remove_Helper(AVLNode<Key, Value>* node, int height) {
             }
         }
         else if (node->getBalance() + height == -1) {
+            std::cout << "test -1\n";
             node->setBalance(-1);
         }
         else if (node->getBalance() + height == 0) {
+            std::cout << "test 0\n";
             node->setBalance(0);
             remove_Helper(parent, width);
         }
     }
     else if (height == 1) {
-        std::cout << "height = 1\n";
         if (node->getBalance() + height == 2) {
             AVLNode<Key, Value>* pivot = node->getRight();
 
