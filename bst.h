@@ -462,7 +462,7 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
 
         while (node) { //Find place to insert new node or replace value via binary search
             parent = node;
-            if (node->getKey() > keyValuePair.second) {
+            if (node->getKey() > keyValuePair.first) {
                 node = node->getLeft();
             }
             else if (node->getKey() < keyValuePair.first) {
