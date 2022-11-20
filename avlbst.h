@@ -141,7 +141,7 @@ protected:
     void rotateLeft(AVLNode<Key, Value>*& node);
     void rotateRight(AVLNode<Key, Value>*& node);
     void insert_Helper(AVLNode<Key, Value>* parent, AVLNode<Key, Value>* node);
-    void remove_Helper(AVLNode<Key, Value>* n, int diff);
+    void removeFix(AVLNode<Key, Value>* n, int diff);
 };
 
 /*
@@ -250,7 +250,7 @@ void AVLTree<Key, Value>:: remove(const Key& key)
             }
 
             delete node;
-            remove_Helper(parent, height);
+            removeFix(parent, height);
         }
         else if(node->getLeft() && node->getRight() == nullptr) { //Only left child node
             AVLNode<Key, Value>* parent = (AVLNode<Key, Value>*)(node->getParent());
@@ -278,7 +278,7 @@ void AVLTree<Key, Value>:: remove(const Key& key)
             }
 
             delete node;
-            remove_Helper(parent, height);
+            removeFix(parent, height);
         }
         else if(node->getLeft() == nullptr && node->getRight()) { //Only right child node
             AVLNode<Key, Value>* parent = (AVLNode<Key, Value>*)(node->getParent());
@@ -306,7 +306,7 @@ void AVLTree<Key, Value>:: remove(const Key& key)
             }
 
             delete node;
-            remove_Helper(parent, height);
+            removeFix(parent, height);
         }
         else if (node->getLeft() && node->getRight()) { //Has two child nodes
             AVLNode<Key, Value>* prev = (AVLNode<Key, Value>*)(this->predecessor(node));
@@ -348,7 +348,7 @@ void AVLTree<Key, Value>:: remove(const Key& key)
             }
             
             delete node;
-            remove_Helper(parent, height);
+            removeFix(parent, height);
         }
     }
 }
@@ -536,7 +536,7 @@ void AVLTree<Key, Value>::insert_Helper(AVLNode<Key, Value>* parent, AVLNode<Key
 }
 
 template<class Key, class Value>
-void AVLTree<Key, Value>::remove_Helper(AVLNode<Key, Value>* n, int diff) {
+void AVLTree<Key, Value>::removeFix(AVLNode<Key, Value>* n, int diff) {
     //if n is null, return
     if(n == NULL){
         return;
