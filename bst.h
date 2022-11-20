@@ -525,7 +525,7 @@ void BinarySearchTree<Key, Value>::remove(const Key & key) {
         std::cout << node->getKey() << std::endl;
         std::cout << node->getLeft() << std::endl;
         std::cout << node->getRight() << std::endl;
-        std::cout << node->getParent() << std::endl;
+        std::cout << node->getParent()->getRight() << std::endl;
 
         delete node;
         return;
