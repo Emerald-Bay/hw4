@@ -141,7 +141,7 @@ protected:
     void rotateLeft(AVLNode<Key, Value>*& node);
     void rotateRight(AVLNode<Key, Value>*& node);
     void insert_Helper(AVLNode<Key, Value>* parent, AVLNode<Key, Value>* node);
-    void remove_Helper(AVLNode<Key, Value>* node, int height);
+    void remove_Helper(AVLNode<Key, Value>* n, int diff);
 };
 
 /*
@@ -536,7 +536,7 @@ void AVLTree<Key, Value>::insert_Helper(AVLNode<Key, Value>* parent, AVLNode<Key
 }
 
 template<class Key, class Value>
-void AVLTree<Key, Value>::remove_Helper(AVLNode<Key, Value>* node, int height) {
+void AVLTree<Key, Value>::remove_Helper(AVLNode<Key, Value>* n, int diff) {
     //if n is null, return
     if(n == NULL){
         return;
